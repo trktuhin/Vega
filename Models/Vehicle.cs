@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,8 @@ namespace Vega.Models
         public string ContactPhone { get; set; }
         [StringLength(255)]
         public string ContactEmail{ get; set; }
+
+        public DateTime LastUpdated{get;set;}
 
         public ICollection<VehicleFeature> Features { get; set; }
         public Vehicle()
