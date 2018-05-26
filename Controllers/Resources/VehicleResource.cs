@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
+using vega.Controllers.Resources;
 
 namespace Vega.Controllers.Resources
 {
-    public partial class VehicleResource
+    public class VehicleResource
     {
         public int Id { get; set; }
-        public int ModelId { get; set; }
+        public KeyValuePairResource Model { get; set; }
         public bool isRegistered { get; set; }
-        [Required]
+        public KeyValuePairResource Make { get; set; }
         public ContactResource Contact { get; set; }
-        public ICollection<int> Features { get; set; }
-        public DateTime LastUpdated {get;set;}
-        
+        public DateTime LastUpdated{get;set;}
+
+        public ICollection<KeyValuePairResource> Features { get; set; }
         public VehicleResource()
         {
-            Features=new Collection<int>();
+            this.Features=new Collection<KeyValuePairResource>();
         }
     }
 }

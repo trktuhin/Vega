@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using vega.Persistence;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Vega.Persistence;
 
 namespace vega
 {
@@ -26,6 +27,8 @@ namespace vega
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
+            services.AddScoped<IVehicleRepository,VehicleRepository>();
+            services.AddScoped<IUnitOfWork,UnitOfWork>();            
             services.AddDbContext<VegaDbContext>(option=>option.UseSqlServer(Configuration["ConnectionString:Default"]));
             services.AddMvc();
         }
