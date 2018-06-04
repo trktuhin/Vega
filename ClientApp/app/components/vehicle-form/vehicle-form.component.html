@@ -1,8 +1,8 @@
 <h1>New Vehicle</h1>
-<form #f="ngForm" (ngSubmit)="submit()">
-  <p>
+<form #f="ngForm" novalidae (ngSubmit)="submit()">
+  <!-- <p>
     {{vehicle|json}}
-  </p>
+  </p> -->
   <div class="form-group">
     <label for="make">Make</label>
     <select name="makeId" id="make" required #Make="ngModel" class="form-control"(change)="onMakeChange()" [(ngModel)]="vehicle.makeId">
@@ -21,15 +21,15 @@
     <div class="alert alert-danger" *ngIf="model.touched && !model.valid">Please specify the model</div>
     <p>Is this vehicle registered?</p>
     <label for="registered" class="radio-inline">
-      <input type="radio" name="isRegistered" id="registered" value="true" [(ngModel)]="vehicle.isRegistered">Yes
+      <input type="radio" name="isRegistered" id="registered" [value]="true" [(ngModel)]="vehicle.isRegistered">Yes
     </label>
     <label for="notRegistered" class="radio-inline">
-        <input type="radio" name="isRegistered" id="notRegistered" value="false" [(ngModel)]="vehicle.isRegistered">No
+        <input type="radio" name="isRegistered" id="notRegistered" [value]="false" [(ngModel)]="vehicle.isRegistered">No
       </label>
     <h2>Features</h2>
     <div *ngFor="let f of features" class="checkbox">
       <label for="feature{{f.id}}">
-        <input id="feature{{f.id}}" type="checkbox" (change)="onFeatureToggle(f.id,$event)"> {{f.name}}
+        <input id="feature{{f.id}}" type="checkbox" (change)="onFeatureToggle(f.id,$event)" [checked]="vehicle.features.includes(f.id)"> {{f.name}}
       </label>
     </div>
     <h2>Contact</h2>
@@ -48,5 +48,6 @@
       <input type="text" id="contactEmail" class="form-control" [(ngModel)]="vehicle.contact.email" name="contactEmail">
     </div>
     <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
+    <!-- <button class="btn btn-danger" *ngIf="vehicle.id" (click)="delete()">Delete</button> -->
     
 </form>

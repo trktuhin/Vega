@@ -11,6 +11,7 @@ using vega.Persistence;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Vega.Persistence;
+using Vega.Models;
 
 namespace vega
 {
@@ -26,9 +27,11 @@ namespace vega
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSetting"));
             services.AddAutoMapper();
             services.AddScoped<IVehicleRepository,VehicleRepository>();
-            services.AddScoped<IUnitOfWork,UnitOfWork>();            
+            services.AddScoped<IUnitOfWork,UnitOfWork>();   
+            services.AddScoped<IPhotoRepository,PhotoRepository>();         
             services.AddDbContext<VegaDbContext>(option=>option.UseSqlServer(Configuration["ConnectionString:Default"]));
             services.AddMvc();
         }

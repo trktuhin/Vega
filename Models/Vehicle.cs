@@ -27,9 +27,12 @@ namespace Vega.Models
         public DateTime LastUpdated{get;set;}
 
         public ICollection<VehicleFeature> Features { get; set; }
+
+        public ICollection<Photo> Photos { get; set; }
         public Vehicle()
         {
             this.Features=new Collection<VehicleFeature>();
+            this.Photos=new Collection<Photo>();
         }
     }
 }

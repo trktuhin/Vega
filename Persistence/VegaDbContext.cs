@@ -10,6 +10,8 @@ namespace vega.Persistence
         public DbSet<Feature> Features { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
+
+        public DbSet<Photo> Photos { get; set; }
         public VegaDbContext(DbContextOptions<VegaDbContext> option)
         :base(option)
         {

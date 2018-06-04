@@ -1,0 +1,38 @@
+<h1>Vehicle</h1>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">Vehicle</a></li>
+    <li role="presentation"><a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos</a></li>
+  </ul>
+  <div class="tab-content" *ngIf="vehicle">
+    <div role="tabpanel" class="tab-pane active" id="basic">
+        <h2>Basics</h2>
+        <ul>
+          <li>Make: {{vehicle.make.name}}</li>
+          <li>Model: {{vehicle.model.name}}</li>
+          <li>Is registerd: {{isRegistered?"yes":"no"}}</li>
+        </ul>
+        <h2>Features</h2>
+        <ul>
+          <li *ngFor="let feature of vehicle.features">{{feature.name}}</li>
+        </ul>
+        <h2>Contact</h2>
+        <ul>
+          <li>{{vehicle.contact.name}}</li>
+          <li>{{vehicle.contact.phone}}</li>
+          <li>{{vehicle.contact.email}}</li>    
+        </ul>
+      <br>
+      <p>
+        <button class="btn btn-primary" (click)="editVehicle()">Edit</button>
+        <button class="btn btn-danger" (click)="deleteVehicle()">Delete</button>
+        <button class="btn btn-default" (click)="viewAllVehicle()">View all vehilles</button>  
+      </p>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="photos">
+        <h2>Photos</h2>
+        <input type="file" (change)="uploadPhoto()" #fileInput>
+        <img *ngFor="let photo of photos" src="/uploads/{{photo.fileName}}" class="img-thumbnail">
+      </div>
+  </div>
+</div>
