@@ -1,8 +1,9 @@
+import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
 import { PhotoService } from './services/photo.service';
 import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, BrowserXhr } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule} from 'ng2-toasty';
 
@@ -45,8 +46,10 @@ import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.com
         ])
     ],
     providers:[
+        {provide:BrowserXhr, useClass:BrowserXhrWithProgress},
         VehicleService,
-        PhotoService
+        PhotoService,
+        ProgressService
     ]
 })
 export class AppModuleShared {

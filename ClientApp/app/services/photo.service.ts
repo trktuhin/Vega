@@ -13,8 +13,6 @@ export class PhotoService{
     }
 
     getPhotos(vId:number){
-        var photos= this.http.get("/api/vehicles/"+vId+"/photos").map(res=>res.json());
-        console.log(vId);
-        return photos;
+        return this.http.get("/api/vehicles/"+vId+"/photos").map(res=>res.json());
     }
 }

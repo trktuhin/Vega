@@ -2,6 +2,7 @@ import { PhotoService } from './../../services/photo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { VehicleService } from '../../services/vehicle.service';
+import { ProgressService } from '../../services/progress.service';
 
 @Component({
   selector: 'app-view-vehicle',
@@ -12,11 +13,13 @@ export class ViewVehicleComponent implements OnInit {
   vehicle:any;
   vehicleId:any;
   photos:any[]=[];
+  progress:any;
   @ViewChild('fileInput')fileInput:ElementRef | undefined;
 
   constructor(private route:ActivatedRoute,
               private vehicleService:VehicleService,
               private photoService:PhotoService,
+              private progressService:ProgressService,
               private router:Router) { 
       this.route.params.subscribe(param=>{
         this.vehicleId=+param['id'];
@@ -30,7 +33,7 @@ export class ViewVehicleComponent implements OnInit {
   ngOnInit() {
     this.photoService.getPhotos(this.vehicleId).subscribe(p=>{
       this.photos=p;
-      console.log(this.photos);      
+      // console.log(this.photos);      
     });
     this.vehicleService.getVehicle(this.vehicleId).subscribe(vehicle=>{
       this.vehicle=vehicle;
@@ -56,12 +59,22 @@ export class ViewVehicleComponent implements OnInit {
   }
 
   uploadPhoto(){
+    this.progressService.startTracking().subscribe(progress=>{
+      console.log(progress);
+      this.progress=progress;
+    },()=>{
+      console.log("error occured");
+        },
+    ()=>{
+      this.progress=null;
+    });
     var realElement:any;
     var nativeElement:HTMLInputElement= this.fileInput? this.fileInput.nativeElement:undefined;
     if(nativeElement)
       realElement=nativeElement;
     this.photoService.uploadPhoto(this.vehicleId,realElement.files[0])
     .subscribe(photo=>this.photos.push(photo));
+    nativeElement.value='';
   }
   
 }
